@@ -43,6 +43,6 @@ def download_best_audio(playlist_url):
 
 
 if __name__ == "__main__":
-    # Ask the user to input a YouTube playlist URL in Greek
+    # Ask the user to input a YouTube playlist URL 
     url = input("Type YouTube playlist URL: ")
     download_best_audio(url)
