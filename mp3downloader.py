@@ -1,48 +1,66 @@
 import yt_dlp
+import tkinter as tk
+from tkinter import messagebox, filedialog  
 
 
-def download_best_audio(playlist_url):
-    # Define options for yt_dlp
+def download_best_audio(playlist_url, output_folder):
+
     ydl_opts = {
-        # Download the best available audio quality
         'format': 'bestaudio',
-
-        # Set the output file template: folder will be named after the playlist
-        # Files will be named as "<index> - <title>.<ext>"
-        'outtmpl': '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s',
-
-        # Use FFmpeg to convert the audio to MP3 with 192kbps quality
+        'outtmpl': f'{output_folder}/%(playlist_index)s - %(title)s.%(ext)s',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
             'preferredquality': '192',
         }],
-
-        # Additional argument to remove video stream (just in case)
-        'postprocessor_args': [
-            '-vn'
-        ],
-
-        # Show output messages (set to False to suppress output)
+        'postprocessor_args': ['-vn'],
         'quiet': False,
-
-        # Enable playlist downloading (not just a single video)
         'noplaylist': False,
-
-        # Skip videos that produce errors instead of stopping the whole process
         'ignoreerrors': True,
-
-        # Do not overwrite existing files
         'nooverwrites': True,
     }
 
-    # Create a YoutubeDL object with the specified options
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        # Start downloading the playlist
         ydl.download([playlist_url])
 
 
 if __name__ == "__main__":
-    # Ask the user to input a YouTube playlist URL 
-    url = input("Type YouTube playlist URL: ")
-    download_best_audio(url)
+    def choose_folder():
+        folder_selected = filedialog.askdirectory()
+        if folder_selected:
+            folder_label.config(text=folder_selected)
+        else:
+            folder_label.config(text="No folder selected")
+
+    def start_download():
+        url = url_entry.get()
+        folder = folder_label.cget("text")
+        if not url:
+            messagebox.showwarning("⚠️ Missing URL", "Please enter a YouTube playlist URL.")
+            return
+        if folder == "No folder selected":
+            messagebox.showwarning("⚠️ Missing Folder", "Please select a folder to save the files.")
+            return
+        try:
+            download_best_audio(url, folder)
+            messagebox.showinfo("✅ Success", "Download completed successfully!")
+        except Exception as e:
+            messagebox.showerror("❌ Error", str(e))
+
+    root = tk.Tk()
+    root.title("🎵 YouTube Playlist MP3 Downloader")
+    root.geometry("600x200")
+
+    tk.Label(root, text="Enter YouTube Playlist URL:", font=("Arial", 12)).pack(pady=10)
+
+    url_entry = tk.Entry(root, width=70)
+    url_entry.pack()
+
+    tk.Button(root, text="Choose Download Folder", command=choose_folder, bg="#2196F3", fg="white").pack(pady=10)
+
+    folder_label = tk.Label(root, text="No folder selected", fg="red")
+    folder_label.pack()
+
+    tk.Button(root, text="Download MP3s", command=start_download, bg="#4CAF50", fg="white").pack(pady=15)
+
+    root.mainloop()

@@ -1,79 +1,63 @@
 # 🎵 YouTube Playlist MP3 Downloader
 
-A Python script that downloads the **best quality audio** from a **YouTube playlist** and converts it to high-quality **MP3 (192kbps)** using `yt-dlp` and `ffmpeg`.
+This is a simple Python GUI application that allows you to download the **best audio tracks** (in MP3 format) from a **YouTube playlist**. The program uses `yt-dlp` for downloading and `tkinter` for the graphical interface.
 
----
+## ✨ Features
 
-## 🚀 Features
+* 🎙️ Downloads high-quality MP3 audio from any YouTube playlist.
+* 📁 Lets you choose your preferred download folder.
+* 🚀 Easy-to-use graphical interface.
+* ✅ Skips errors and continues downloading the rest of the playlist.
+* 🌟 Automatically names the files based on playlist order and video title.
 
-* ✅ Downloads **entire playlists**
-* 🎷 Extracts **only the best audio track**
-* ♻️ Automatically converts audio to **MP3 (192kbps)**
-* 📂 Organizes files in folders by **playlist name**
-* 📌 Skips broken/unavailable videos (no interruptions)
-* 🔒 Avoids overwriting existing files
+## 🚀 Getting Started
 
----
+### Prerequisites
 
-## 💠 Requirements
+Make sure you have the following installed:
 
-* Python 3.7+
-* [`yt-dlp`](https://github.com/yt-dlp/yt-dlp)
-* [`ffmpeg`](https://ffmpeg.org/)
+* Python 3.x
+* `yt-dlp`
+* `ffmpeg`
 
-### Install Requirements
+To install the required Python package:
 
 ```bash
 pip install yt-dlp
 ```
 
-Make sure `ffmpeg` is installed and accessible from your system's PATH.
+Make sure `ffmpeg` is installed and added to your system PATH. You can download it from: [https://ffmpeg.org/download.html](https://ffmpeg.org/download.html)
 
----
+## 📚 How to Use
 
-## 📥 Usage
+1. Run the script:
 
-1. **Clone this repository:**
+   ```bash
+   python your_script_name.py
+   ```
 
-```bash
-git clone https://github.com/yourusername/youtube-playlist-mp3-downloader.git
-cd youtube-playlist-mp3-downloader
-```
+2. Enter a valid YouTube **playlist** URL.
 
-2. **Run the script:**
+3. Click on **"Choose Download Folder"** and select your target directory.
 
-```bash
-python downloader.py
-```
+4. Click **"Download MP3s"**.
 
-3. **Paste your YouTube playlist URL when prompted:**
+5. Sit back and let it fetch the best quality audio from the playlist!
 
-```
-𝕓άλε το URL της YouTube playlist:
-```
+## 👍 Example Output
 
-The downloaded MP3 files will be saved in a folder named after the playlist, with filenames formatted like this:
+Downloaded files will be named like this:
 
 ```
-<Playlist Name>/<Index> - <Video Title>.mp3
+1 - First Song Title.mp3
+2 - Second Song Title.mp3
+...
 ```
 
----
+## 🌐 Technologies Used
 
-## 📂 Output Example
+* Python
+* tkinter
+* yt-dlp
+* ffmpeg
 
-```
-My Favorite Songs/
-├── 01 - Song One.mp3
-├── 02 - Song Two.mp3
-├── ...
-```
-
----
-
-## ❗ Notes
-
-* If a video is geo-blocked or unavailable, the script will **skip it** automatically.
-* The script does **not** download videos—**only audio** is saved.
-
----
